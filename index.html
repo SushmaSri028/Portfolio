@@ -1,230 +1,808 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushma Sri K. | Full-Stack Software Engineer Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Sushma Sri Kondamareddy | Java Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --primary: #00d4ff;
+            --primary-dim: rgba(0,212,255,0.12);
+            --primary-border: rgba(0,212,255,0.3);
+            --secondary: #a855f7;
+            --bg: #050510;
+            --bg-2: #08081a;
+            --bg-card: rgba(255,255,255,0.04);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,0.08);
+            --glow: 0 0 30px rgba(0,212,255,0.2);
+            --radius: 16px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ── ANIMATED BG ── */
+        .bg-orbs {
+            position: fixed; inset: 0;
+            z-index: 0; pointer-events: none; overflow: hidden;
+        }
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(90px); opacity: 0.12;
+            animation: floatOrb 25s ease-in-out infinite;
+        }
+        .orb-1 { width: 700px; height: 700px; background: var(--primary); top: -300px; left: -200px; }
+        .orb-2 { width: 600px; height: 600px; background: var(--secondary); bottom: -250px; right: -200px; animation-duration: 30s; animation-delay: -12s; }
+        .orb-3 { width: 400px; height: 400px; background: #3b82f6; top: 50%; left: 45%; animation-duration: 20s; animation-delay: -6s; }
+        @keyframes floatOrb {
+            0%,100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(50px,-40px) scale(1.06); }
+            66% { transform: translate(-35px,25px) scale(0.94); }
+        }
+
+        /* ── NAVBAR ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000; padding: 18px 0;
+            transition: all 0.35s ease;
+        }
+        nav.scrolled {
+            background: rgba(5,5,16,0.88);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            padding: 0 28px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; list-style: none; gap: 36px; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none;
+            font-size: 0.88rem; font-weight: 500;
+            letter-spacing: 0.02em; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links .cta {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: #000 !important; padding: 9px 22px;
+            border-radius: 100px; font-weight: 600;
+        }
+        .nav-links .cta:hover { opacity: 0.88; }
+        .nav-toggle { display: none; cursor: pointer; color: var(--text); font-size: 1.3rem; }
+
+        /* ── LAYOUT ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+        section { padding: 110px 0; }
+
+        /* ── SECTION HEADERS ── */
+        .sec-label {
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--primary); margin-bottom: 10px;
+        }
+        .sec-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.9rem, 4vw, 2.7rem);
+            font-weight: 700; color: var(--text); margin-bottom: 14px;
+        }
+        .sec-sub { color: var(--text-muted); max-width: 540px; line-height: 1.8; }
+        .sec-header { margin-bottom: 64px; }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 110px 0 80px;
+        }
+        .hero-grid {
+            display: grid; grid-template-columns: 1fr auto;
+            gap: 80px; align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 9px;
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.3);
+            color: #22c55e; padding: 7px 18px;
+            border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.04em; margin-bottom: 22px;
+        }
+        .live-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+            animation: livePulse 2s infinite;
+        }
+        @keyframes livePulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+            50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+        }
+        .hero-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+            font-weight: 800; line-height: 1.08; margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-role {
+            font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+            font-weight: 600; color: var(--primary);
+            margin-bottom: 22px; min-height: 2.2em;
+        }
+        .cursor {
+            display: inline-block; width: 3px; height: 1em;
+            background: var(--primary); margin-left: 3px;
+            vertical-align: middle; animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+        .hero-desc {
+            color: var(--text-muted); font-size: 1rem;
+            max-width: 560px; margin-bottom: 38px; line-height: 1.85;
+        }
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: #000; padding: 15px 30px; border-radius: 100px;
+            font-weight: 700; font-size: 0.92rem; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 9px;
+            transition: all 0.3s; box-shadow: 0 0 24px rgba(0,212,255,0.35);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(0,212,255,0.55); }
+        .btn-ghost {
+            border: 1px solid var(--primary-border); color: var(--primary);
+            padding: 15px 30px; border-radius: 100px; font-weight: 600;
+            font-size: 0.92rem; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 9px;
+            transition: all 0.3s; background: var(--primary-dim);
+        }
+        .btn-ghost:hover { background: rgba(0,212,255,0.2); transform: translateY(-2px); }
+
+        /* Stats */
+        .hero-stats {
+            display: flex; gap: 36px; margin-top: 52px;
+            padding-top: 36px; border-top: 1px solid var(--border);
+        }
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+
+        /* Hero photo */
+        .hero-photo-wrap { position: relative; flex-shrink: 0; }
+        .ring-outer {
+            width: 290px; height: 290px; border-radius: 50%;
+            background: conic-gradient(var(--primary), var(--secondary), #3b82f6, var(--primary));
+            padding: 3px; animation: spinRing 7s linear infinite;
+        }
+        @keyframes spinRing { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+        .ring-inner {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: var(--bg); padding: 7px;
+        }
+        .ring-inner img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+        }
+        .hero-socials {
+            display: flex; justify-content: center; gap: 14px; margin-top: 22px;
+        }
+        .hero-socials a {
+            width: 42px; height: 42px; border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); text-decoration: none;
+            background: var(--bg-card); transition: all 0.3s;
+        }
+        .hero-socials a:hover {
+            border-color: var(--primary); color: var(--primary);
+            transform: translateY(-3px); box-shadow: var(--glow);
+        }
+
+        /* ── SKILLS ── */
+        #skills { background: var(--bg-2); }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 28px;
+            backdrop-filter: blur(12px); transition: all 0.35s;
+        }
+        .skill-card:hover {
+            border-color: var(--primary-border);
+            box-shadow: var(--glow); transform: translateY(-5px);
+        }
+        .skill-icon {
+            width: 46px; height: 46px; border-radius: 13px;
+            background: var(--primary-dim); border: 1px solid var(--primary-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.1rem; margin-bottom: 18px;
+        }
+        .skill-card h3 {
+            font-size: 0.87rem; font-weight: 700; color: var(--text);
+            margin-bottom: 14px; letter-spacing: 0.01em;
+        }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            color: var(--text-muted); padding: 5px 13px; border-radius: 100px;
+            font-size: 0.79rem; font-weight: 500; transition: all 0.2s; cursor: default;
+        }
+        .tag:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-dim); }
+
+        /* ── EXPERIENCE ── */
+        .timeline { position: relative; padding-left: 0; }
+        .tl-line {
+            position: absolute; left: 20px; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            opacity: 0.25; border-radius: 2px;
+        }
+        .tl-item { padding-left: 62px; margin-bottom: 44px; position: relative; }
+        .tl-item:last-child { margin-bottom: 0; }
+        .tl-dot {
+            position: absolute; left: 12px; top: 8px;
+            width: 18px; height: 18px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 18px rgba(0,212,255,0.55);
+        }
+        .tl-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 34px;
+            backdrop-filter: blur(12px); transition: all 0.35s;
+        }
+        .tl-card:hover { border-color: var(--primary-border); box-shadow: var(--glow); }
+        .tl-head {
+            display: flex; align-items: flex-start;
+            justify-content: space-between; flex-wrap: wrap;
+            gap: 14px; margin-bottom: 22px;
+        }
+        .tl-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem; font-weight: 700; color: var(--text);
+        }
+        .tl-card h4 { color: var(--primary); font-size: 0.9rem; font-weight: 500; margin-top: 5px; }
+        .badge {
+            padding: 6px 16px; border-radius: 100px;
+            font-size: 0.77rem; font-weight: 700; white-space: nowrap;
+            border: 1px solid var(--primary-border);
+            background: var(--primary-dim); color: var(--primary);
+        }
+        .badge.current {
+            border-color: rgba(34,197,94,0.35);
+            background: rgba(34,197,94,0.1); color: #22c55e;
+        }
+        .tl-card ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+        .tl-card ul li {
+            color: var(--text-muted); font-size: 0.9rem;
+            line-height: 1.75; padding-left: 22px; position: relative;
+        }
+        .tl-card ul li::before { content: '▹'; position: absolute; left: 0; color: var(--primary); }
+
+        /* ── EDUCATION ── */
+        #education { background: var(--bg-2); }
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 22px; }
+        .edu-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 34px;
+            backdrop-filter: blur(12px); transition: all 0.35s;
+            position: relative; overflow: hidden;
+        }
+        .edu-card::after {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .edu-card:hover { border-color: var(--primary-border); box-shadow: var(--glow); transform: translateY(-5px); }
+        .edu-icon {
+            width: 50px; height: 50px; border-radius: 14px;
+            background: var(--primary-dim); border: 1px solid var(--primary-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.2rem; margin-bottom: 22px;
+        }
+        .edu-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 7px; }
+        .edu-card .inst { color: var(--primary); font-size: 0.87rem; font-weight: 600; margin-bottom: 10px; }
+        .edu-card .meta { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 4px; }
+        .edu-card .active { color: #22c55e; font-weight: 600; }
+        .cert-list { list-style: none; margin-top: 14px; }
+        .cert-list li {
+            color: var(--text-muted); font-size: 0.84rem;
+            padding: 10px 0; border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .cert-list li:last-child { border-bottom: none; }
+        .cert-list li i { color: var(--primary); width: 16px; }
+
+        /* ── PROJECTS ── */
+        .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 22px; }
+        .proj-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 34px;
+            backdrop-filter: blur(12px); transition: all 0.35s;
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        .proj-card:hover { border-color: var(--primary-border); box-shadow: var(--glow); transform: translateY(-5px); }
+        .proj-top { display: flex; align-items: center; justify-content: space-between; }
+        .proj-icon {
+            width: 46px; height: 46px; border-radius: 13px;
+            background: var(--primary-dim); border: 1px solid var(--primary-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.1rem;
+        }
+        .proj-links a {
+            color: var(--text-muted); font-size: 1.2rem;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .proj-links a:hover { color: var(--primary); }
+        .proj-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); }
+        .proj-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.75; flex-grow: 1; }
+        .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip {
+            background: var(--primary-dim); border: 1px solid rgba(0,212,255,0.2);
+            color: var(--primary); padding: 4px 12px;
+            border-radius: 100px; font-size: 0.76rem; font-weight: 600;
+        }
+
+        /* ── CONTACT ── */
+        #contact { background: var(--bg-2); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+        .contact-left h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; margin-bottom: 16px; }
+        .contact-left p { color: var(--text-muted); line-height: 1.85; margin-bottom: 34px; }
+        .contact-items { display: flex; flex-direction: column; gap: 18px; }
+        .ci {
+            display: flex; align-items: center; gap: 16px;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 16px 20px;
+            transition: all 0.3s; text-decoration: none;
+        }
+        .ci:hover { border-color: var(--primary-border); box-shadow: var(--glow); transform: translateX(5px); }
+        .ci-icon {
+            width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px;
+            background: var(--primary-dim); border: 1px solid var(--primary-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1rem;
+        }
+        .ci-label { font-size: 0.74rem; color: var(--text-muted); opacity: 0.65; margin-bottom: 3px; }
+        .ci-val { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 0; text-align: center;
+            color: var(--text-muted); font-size: 0.84rem;
+        }
+        footer span { color: var(--primary); }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+        .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+        /* ── BACK TO TOP ── */
+        #btt {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 46px; height: 46px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; opacity: 0; transition: opacity 0.3s, transform 0.3s;
+            z-index: 999;
+        }
+        #btt.show { opacity: 1; }
+        #btt:hover { transform: translateY(-3px); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 50px; }
+            .hero-photo-wrap { order: -1; display: flex; flex-direction: column; align-items: center; }
+            .ring-outer { width: 210px; height: 210px; }
+            .hero-desc { margin: 0 auto 38px; }
+            .hero-btns { justify-content: center; }
+            .hero-stats { justify-content: center; flex-wrap: wrap; gap: 28px; }
+            .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(5,5,16,0.96); backdrop-filter: blur(20px); padding: 28px; gap: 20px; border-top: 1px solid var(--border); }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .tl-line { left: 14px; }
+            .tl-dot { left: 6px; }
+            .tl-item { padding-left: 46px; }
+            section { padding: 80px 0; }
+        }
+    </style>
+</head>
 <body>
 
-    <nav id="navbar">
-        <div class="container">
-            <h1 class="logo">Sushma Sri K.</h1>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="mailto:sushmasrikndamareddy2@gmail.com" class="cta-link"><i class="fas fa-envelope"></i>
-                        Contact</a></li>
-            </ul>
-            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-        </div>
-    </nav>
+<div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
 
-    <header id="hero" class="section">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <p class="greeting animate-fade">Hello, I'm</p>
-                <h2 class="name animate-slide-in">Kondamareddy Sushma Sri</h2>
-                <h1 class="role animate-slide-in delay-1">Full-Stack Software Engineer</h1>
-                <p class="tagline animate-slide-in delay-2">Building Scalable, High-Performance Web Solutions with Java,
-                    Spring, and Azure.</p>
-                <div class="social-links animate-fade delay-3">
-                    <a href="#" target="_blank" title="GitHub"></a>
-                    <a href="https://github.com/Sushmasri028" target="_blank" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:sushmasrikondamareddy2@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="Resume.pdf" class="btn btn-primary download-btn" download>
-                        <i class="fas fa-download"></i> Download Resume
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image animate-fade-in">
-                <img src="sushma.jpg" alt="Kondamareddy Sushma Sri Profile Picture" class="profile-pic">
-            </div>
-        </div>
-    </header>
+<!-- ── NAV ── -->
+<nav id="nav">
+    <div class="nav-inner">
+        <a href="#hero" class="nav-logo">Sushma Sri K.</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact" class="cta">Contact</a></li>
+        </ul>
+        <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+    </div>
+</nav>
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title animate-up">About Me</h2>
-            <div class="about-content">
-                <p class="animate-up delay-1">A results-driven Software Engineer with 2 years of comprehensive
-                    experience in full-stack web application development. Proficient in leveraging Java, Spring Boot,
-                    Spring MVC, and Angular to build robust, scalable, and secure applications. </p>
-                <p class="animate-up delay-2">I specialize in RESTful APIs, Microservices architecture, and cloud
-                    deployment using Microsoft Azure and Docker. My focus is on delivering high-quality, maintainable
-                    code through CI/CD pipelines, Agile methodologies, and meticulous performance optimization across
-                    various database systems like PostgreSQL and MySQL.</p>
-                <div class="contact-info animate-up delay-3">
-                    <span><i class="fas fa-map-marker-alt"></i> Boca Raton, Florida</span>
-                    <span><i class="fas fa-phone"></i> +1 (561) 565-7499</span>
-                    <span><i class="fas fa-envelope"></i> sushmasrikondamareddy2@gmail.com</span>
+<!-- ── HERO ── -->
+<header id="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div>
+                <div class="hero-badge">
+                    <span class="live-dot"></span>
+                    Available for Opportunities
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="section gray-bg">
-        <div class="container">
-            <h2 class="section-title animate-up">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category animate-up delay-1">
-                    <h3><i class="fas fa-code"></i> Languages</h3>
-                    <div class="skill-tags">
-                        <span>Java</span><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>SQL</span>
+                <h1 class="hero-name">Kondamareddy<br>Sushma Sri</h1>
+                <div class="hero-role">
+                    <span id="typed"></span><span class="cursor"></span>
+                </div>
+                <p class="hero-desc">
+                    Java Full Stack Developer with 3 years of experience building scalable applications across education and networking technology. Specializing in Spring Boot microservices, React/Redux frontends, and AWS cloud infrastructure.
+                </p>
+                <div class="hero-btns">
+                    <a href="Resume.pdf" class="btn-primary" download><i class="fas fa-download"></i> Download Resume</a>
+                    <a href="#contact" class="btn-ghost"><i class="fas fa-envelope"></i> Get in Touch</a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="stat-num">3+</div>
+                        <div class="stat-label">Years Experience</div>
                     </div>
-                </div>
-                <div class="skill-category animate-up delay-2">
-                    <h3><i class="fas fa-gem"></i> Frameworks & Libraries</h3>
-                    <div class="skill-tags">
-                        <span>Spring Boot</span><span>Spring
-                            MVC</span><span>Hibernate/JPA</span><span>Angular</span><span>React</span>
+                    <div>
+                        <div class="stat-num">2</div>
+                        <div class="stat-label">Companies</div>
                     </div>
-                </div>
-                <div class="skill-category animate-up delay-3">
-                    <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
-                    <div class="skill-tags">
-                        <span>Microsoft
-                            Azure</span><span>Docker</span><span>AWS</span><span>CI/CD</span><span>Jenkins</span><span>GitHub
-                            Actions</span>
+                    <div>
+                        <div class="stat-num">3.67</div>
+                        <div class="stat-label">MS GPA</div>
                     </div>
-                </div>
-                <div class="skill-category animate-up delay-4">
-                    <h3><i class="fas fa-database"></i> Databases & Tools</h3>
-                    <div class="skill-tags">
-                        <span>PostgreSQL</span><span>MySQL</span><span>Oracle</span><span>Git/GitHub</span><span>JIRA</span><span>Postman</span>
-                    </div>
-                </div>
-                <div class="skill-category animate-up delay-5">
-                    <h3><i class="fas fa-cogs"></i> Testing & Optimization</h3>
-                    <div class="skill-tags">
-                        <span>JUnit/TestNG</span><span>Mockito</span><span>Microservices</span><span>RESTful APIs</span>
+                    <div>
+                        <div class="stat-num">2</div>
+                        <div class="stat-label">Certifications</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title animate-up">Work Experience</h2>
-            <div class="timeline-content card hover-effect">
-                <div class="timeline-item animate-up delay-1">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content card hover-effect">
-                        <h3>Software Engineer</h3>
-                        <h4>Hindustan Computers Limited (HCL) | Client: CISCO</h4>
-                        <span class="duration"><i class="far fa-calendar-alt"></i> Aug 2022 – Jul 2024 | Chennai,
-                            India</span>
-                        <ul>
-                            <li>Full-Stack Development: Developed and maintained RESTful APIs using Spring Boot and
-                                Spring MVC. Implemented scalable Microservices architecture and secured APIs with
-                                JWT-based Spring Security.</li>
-                            <li>Frontend Expertise: Built responsive Single Page Applications (SPAs) using Angular and
-                                React (TypeScript), utilizing HTML5, CSS3, Bootstrap, and Tailwind CSS.</li>
-                            <li>Database Management: Leveraged Hibernate and JPA for efficient database interaction.
-                                Designed, optimized, and maintained SQL queries across PostgreSQL, MySQL, and Oracle.
-                            </li>
-                            <li>DevOps & Deployment: Implemented CI/CD pipelines using Jenkins and GitHub Actions.
-                                Containerized applications with Docker for deployment on AWS, Azure, and GCP.</li>
-                            <li>Performance & Security: Optimized application performance by integrating Redis caching
-                                and using the ELK Stack for monitoring. Ensured application security with OAuth2
-                                authentication.</li>
-                        </ul>
+            <div class="hero-photo-wrap">
+                <div class="ring-outer">
+                    <div class="ring-inner">
+                        <img src="sushma.jpg" alt="Sushma Sri Kondamareddy">
                     </div>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/Sushmasri028" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="mailto:kondamareddysushmasri03@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:+15615367958" title="Phone"><i class="fas fa-phone"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</header>
 
-    <section id="education" class="section gray-bg">
-        <div class="container">
-            <h2 class="section-title animate-up">Education & Certifications</h2>
-            <div class="education-grid">
-                <div class="education-item card animate-up delay-1 hover-effect">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>Master's in Computer Science</h3>
-                    <p class="institution">Florida Atlantic University, Florida, USA</p>
-                    <p class="details">CGPA: 3.67/4.0</p>
-                    <span class="duration">Aug 2024 - Present</span>
+<!-- ── SKILLS ── -->
+<section id="skills">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-label">What I Work With</div>
+            <h2 class="sec-title">Technical Skills</h2>
+            <p class="sec-sub">A toolkit built across backend, frontend, cloud, and DevOps over 3 years of production work.</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <div class="skill-icon"><i class="fas fa-code"></i></div>
+                <h3>Programming & Query Languages</h3>
+                <div class="tag-row">
+                    <span class="tag">Java</span><span class="tag">SQL</span>
                 </div>
-                <div class="education-item card animate-up delay-2 hover-effect">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h3>Bachelor's in Computer Science</h3>
-                    <p class="institution">Narayana Engineering College</p>
-                    <p class="details">CGPA: 9.42</p>
-                    <span class="duration">Apr 2018 - May 2022</span>
+            </div>
+            <div class="skill-card reveal d1">
+                <div class="skill-icon"><i class="fas fa-server"></i></div>
+                <h3>Backend Frameworks & Security</h3>
+                <div class="tag-row">
+                    <span class="tag">Spring Boot</span><span class="tag">Spring MVC</span><span class="tag">Spring Security</span><span class="tag">OAuth</span>
                 </div>
-                <div class="education-item card certifications animate-up delay-3 hover-effect">
-                    <i class="fas fa-certificate"></i>
-                    <h3>Certifications</h3>
+            </div>
+            <div class="skill-card reveal d2">
+                <div class="skill-icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Frontend Development</h3>
+                <div class="tag-row">
+                    <span class="tag">React</span><span class="tag">Redux</span>
+                </div>
+            </div>
+            <div class="skill-card reveal d3">
+                <div class="skill-icon"><i class="fab fa-aws"></i></div>
+                <h3>Cloud Platforms & Services</h3>
+                <div class="tag-row">
+                    <span class="tag">AWS</span><span class="tag">Lambda</span><span class="tag">S3</span><span class="tag">DynamoDB</span><span class="tag">CloudWatch</span>
+                </div>
+            </div>
+            <div class="skill-card reveal d1">
+                <div class="skill-icon"><i class="fas fa-ship"></i></div>
+                <h3>DevOps & CI/CD</h3>
+                <div class="tag-row">
+                    <span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">Kubernetes</span>
+                </div>
+            </div>
+            <div class="skill-card reveal d2">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <h3>Databases & Messaging</h3>
+                <div class="tag-row">
+                    <span class="tag">PostgreSQL</span><span class="tag">DynamoDB</span><span class="tag">Apache Kafka</span>
+                </div>
+            </div>
+            <div class="skill-card reveal d3">
+                <div class="skill-icon"><i class="fas fa-vial"></i></div>
+                <h3>Testing & Monitoring</h3>
+                <div class="tag-row">
+                    <span class="tag">JUnit</span><span class="tag">Mockito</span><span class="tag">Selenium</span><span class="tag">ELK Stack</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-label">Career Journey</div>
+            <h2 class="sec-title">Work Experience</h2>
+            <p class="sec-sub">3 years of hands-on experience across education technology and enterprise networking.</p>
+        </div>
+        <div class="timeline">
+            <div class="tl-line"></div>
+
+            <div class="tl-item reveal">
+                <div class="tl-dot"></div>
+                <div class="tl-card">
+                    <div class="tl-head">
+                        <div>
+                            <h3>Java Full Stack Developer</h3>
+                            <h4>Strategic Education, Inc.</h4>
+                        </div>
+                        <span class="badge current">● Jul 2025 – Present</span>
+                    </div>
                     <ul>
-                        <li>Microsoft Azure Fundamentals</li>
-                        <li>CCNA (Cisco Certified Network Associate)</li>
+                        <li>Developed Java microservices with Spring Boot to manage student enrollment data, integrated with React-based dashboards for real-time updates.</li>
+                        <li>Built scalable cloud infrastructure on AWS (Lambda & DynamoDB) to handle peak traffic during semester registration for online university students.</li>
+                        <li>Created responsive React components improving UX for adult learners accessing course materials and degree progress trackers on mobile.</li>
+                        <li>Managed PostgreSQL databases with complex SQL queries and schema optimization to maintain data integrity for academic records and transcripts.</li>
+                        <li>Implemented Spring Security and OAuth for secure authentication, complying with FERPA educational data privacy regulations.</li>
+                        <li>Built real-time notification systems using Apache Kafka to alert students about assignment deadlines and grade postings.</li>
+                        <li>Analyzed performance logs with AWS CloudWatch and optimized Java code to reduce latency on high-traffic discussion boards.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tl-item reveal d1">
+                <div class="tl-dot"></div>
+                <div class="tl-card">
+                    <div class="tl-head">
+                        <div>
+                            <h3>Java Full Stack Developer</h3>
+                            <h4>Cisco Systems</h4>
+                        </div>
+                        <span class="badge">Jun 2022 – Jul 2024</span>
+                    </div>
+                    <ul>
+                        <li>Developed Java microservices with Spring Boot to manage network configuration data across global data centers, ensuring high availability.</li>
+                        <li>Created responsive React and Redux dashboards to visualize real-time network security threats and traffic patterns for enterprise monitoring tools.</li>
+                        <li>Implemented cloud-native applications on AWS (Lambda & S3) to process large-scale telemetry data from Cisco networking hardware efficiently.</li>
+                        <li>Designed optimized SQL queries and schemas in PostgreSQL for high-volume transaction logs across cloud security management platforms.</li>
+                        <li>Built event-driven architectures with Apache Kafka to process async messages between distributed microservices for real-time network alerts.</li>
+                        <li>Managed containerized applications using Docker and Kubernetes across hybrid cloud environments for diverse client requirements.</li>
+                        <li>Built ELK Stack logging and monitoring solutions to analyze performance and troubleshoot production issues in high-traffic networking applications.</li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title animate-up">Projects</h2>
-            <div class="projects-grid">
-                
-                <div class="project-card card animate-up delay-1 hover-effect">
-                    <h3>Task Manager Backend</h3>
-                    <p class="project-tech">Java, Spring Boot, Spring Security, MySQL, JUnit</p>
-                    <p>A robust RESTful API for task management, featuring JWT-based authentication, CRUD operations for tasks and users, and automated testing with JUnit and Mockito.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/SushmaSri028/task-manager-backend.git" target="_blank" class="link-btn">
-                            <i class="fab fa-github"></i> GitHub Repo
-                        </a>
+<!-- ── EDUCATION ── -->
+<section id="education">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-label">Academic Background</div>
+            <h2 class="sec-title">Education & Certifications</h2>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-card reveal">
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Master of Science in Computer Science</h3>
+                <p class="inst">Florida Atlantic University</p>
+                <p class="meta">Boca Raton, Florida, USA</p>
+                <p class="meta">GPA: 3.67 / 4.0</p>
+                <p class="meta active">Aug 2024 – May 2026</p>
+            </div>
+            <div class="edu-card reveal d1">
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Bachelor of Science in Computer Science</h3>
+                <p class="inst">Narayana Engineering College</p>
+                <p class="meta">India</p>
+                <p class="meta">CGPA: 9.42 / 10.0</p>
+                <p class="meta">Apr 2018 – May 2022</p>
+            </div>
+            <div class="edu-card reveal d2">
+                <div class="edu-icon"><i class="fas fa-certificate"></i></div>
+                <h3>Certifications</h3>
+                <p class="inst">Industry Credentials</p>
+                <ul class="cert-list">
+                    <li><i class="fab fa-microsoft"></i> Microsoft Certified: Azure Fundamentals (AZ-900)</li>
+                    <li><i class="fas fa-network-wired"></i> Cisco Certified Network Associate (CCNA)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+    <div class="container">
+        <div class="sec-header">
+            <div class="sec-label">Things I've Built</div>
+            <h2 class="sec-title">Projects</h2>
+        </div>
+        <div class="proj-grid">
+            <div class="proj-card reveal">
+                <div class="proj-top">
+                    <div class="proj-icon"><i class="fas fa-tasks"></i></div>
+                    <div class="proj-links">
+                        <a href="https://github.com/SushmaSri028/task-manager-backend.git" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-
-                <div class="project-card card animate-up delay-2 hover-effect">
-                    <h3>Credit Card Fraud Detection</h3>
-                    <p class="project-tech">Python, Scikit-Learn, Pandas, Machine Learning</p>
-                    <p>An end-to-end ML solution designed to detect fraudulent transactions. Implemented data preprocessing, feature scaling, and class imbalance handling using SMOTE, achieving high precision with Logistic Regression and Random Forest models.</p>
-                    <div class="project-links">
-                        <a href="https://github.com/SushmaSri028/credit_card_fraud_detection.git" target="_blank" class="link-btn">
-                            <i class="fab fa-github"></i> GitHub Repo
-                        </a>
+                <h3>Task Manager Backend</h3>
+                <p class="proj-desc">A robust RESTful API for task management featuring JWT-based authentication, full CRUD operations for tasks and users, and comprehensive automated testing with JUnit and Mockito.</p>
+                <div class="chip-row">
+                    <span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Spring Security</span><span class="chip">MySQL</span><span class="chip">JUnit</span>
+                </div>
+            </div>
+            <div class="proj-card reveal d1">
+                <div class="proj-top">
+                    <div class="proj-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="proj-links">
+                        <a href="https://github.com/SushmaSri028/credit_card_fraud_detection.git" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-           <!-- Project 3 Placeholder  <div class="project-card card animate-up delay-3 hover-effect">
-                <h3>Project Title Placeholder 3</h3>
-                <p class="project-tech">Microservices, Redis, ELK Stack, CI/CD</p>
-                <p>A brief description of a third project, emphasizing architecture, performance, and DevOps skills.</p>
-                <div class="project-links">
-                    <a href="#" target="_blank" class="link-btn"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                    <a href="#" target="_blank" class="link-btn"><i class="fab fa-github"></i> GitHub Repo</a>
+                <h3>Credit Card Fraud Detection</h3>
+                <p class="proj-desc">End-to-end ML solution to detect fraudulent transactions. Implemented data preprocessing, feature scaling, and class imbalance handling using SMOTE — achieving high precision with Logistic Regression and Random Forest models.</p>
+                <div class="chip-row">
+                    <span class="chip">Python</span><span class="chip">Scikit-Learn</span><span class="chip">Pandas</span><span class="chip">SMOTE</span><span class="chip">ML</span>
                 </div>
-            </div>-->
+            </div>
         </div>
-        <p class="section-note animate-fade delay-4">**Note:** Add links and detailed descriptions for your projects
-            here!</p>
-        </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Kondamareddy Sushma Sri. All rights reserved.</p>
-            <p>Designed for professional presentation on LinkedIn.</p>
+<!-- ── CONTACT ── -->
+<section id="contact">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-left reveal">
+                <div class="sec-label">Let's Connect</div>
+                <h2>Get In Touch</h2>
+                <p>I'm currently open to new opportunities. Whether you have a question or want to discuss a role, my inbox is always open!</p>
+                <a href="mailto:kondamareddysushmasri03@gmail.com" class="btn-primary" style="width: fit-content;">
+                    <i class="fas fa-paper-plane"></i> Send Email
+                </a>
+            </div>
+            <div class="contact-items reveal d2">
+                <a class="ci" href="mailto:kondamareddysushmasri03@gmail.com">
+                    <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="ci-label">Email</div>
+                        <div class="ci-val">kondamareddysushmasri03@gmail.com</div>
+                    </div>
+                </a>
+                <a class="ci" href="tel:+15615367958">
+                    <div class="ci-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <div class="ci-label">Phone</div>
+                        <div class="ci-val">+1 (561) 536-7958</div>
+                    </div>
+                </a>
+                <a class="ci" href="https://github.com/Sushmasri028" target="_blank">
+                    <div class="ci-icon"><i class="fab fa-github"></i></div>
+                    <div>
+                        <div class="ci-label">GitHub</div>
+                        <div class="ci-val">github.com/Sushmasri028</div>
+                    </div>
+                </a>
+                <div class="ci" style="cursor: default;">
+                    <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <div class="ci-label">Location</div>
+                        <div class="ci-val">Boca Raton, Florida, USA</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script src="script.js"></script>
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="container">
+        <p>Designed & built by <span>Kondamareddy Sushma Sri</span> &copy; 2026. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Back to top -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+    // Navbar scroll effect
+    const nav = document.getElementById('nav');
+    const btt = document.getElementById('btt');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+        btt.classList.toggle('show', window.scrollY > 500);
+    });
+
+    // Mobile nav
+    document.getElementById('navToggle').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a =>
+        a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
+    );
+
+    // Typing effect
+    const roles = ['Java Full Stack Developer', 'Spring Boot Engineer', 'AWS Cloud Developer', 'React & Redux Developer', 'Microservices Architect'];
+    let ri = 0, ci = 0, del = false;
+    const typed = document.getElementById('typed');
+    function type() {
+        const w = roles[ri];
+        if (!del) {
+            typed.textContent = w.slice(0, ++ci);
+            if (ci === w.length) { del = true; setTimeout(type, 2000); return; }
+        } else {
+            typed.textContent = w.slice(0, --ci);
+            if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+        }
+        setTimeout(type, del ? 55 : 85);
+    }
+    type();
+
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
-
 </html>
